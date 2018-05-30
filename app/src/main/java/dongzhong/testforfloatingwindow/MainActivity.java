@@ -32,6 +32,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
                 startService(new Intent(MainActivity.this, FloatingImageDisplayService.class));
             }
+        } else if (requestCode == 2) {
+            if (!Settings.canDrawOverlays(this)) {
+                Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
+                startService(new Intent(MainActivity.this, FloatingVideoService.class));
+            }
         }
     }
 
@@ -56,6 +63,18 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 1);
         } else {
             startService(new Intent(MainActivity.this, FloatingImageDisplayService.class));
+        }
+    }
+
+    public void startFloatingVideoService(View view) {
+        if (FloatingVideoService.isStarted) {
+            return;
+        }
+        if (!Settings.canDrawOverlays(this)) {
+            Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT);
+            startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 2);
+        } else {
+            startService(new Intent(MainActivity.this, FloatingVideoService.class));
         }
     }
 }

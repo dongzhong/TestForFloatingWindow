@@ -3,6 +3,7 @@
     package="dongzhong.testforfloatingwindow">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -20,6 +21,7 @@
         </activity>
         <service android:name=".FloatingButtonService"></service>
         <service android:name=".FloatingImageDisplayService"></service>
+        <service android:name=".FloatingVideoService"></service>
     </application>
 
 </manifest>

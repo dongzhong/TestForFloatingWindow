@@ -17,4 +17,10 @@
         android:text="start floating image display"
         android:onClick="startFloatingImageDisplayService"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="start floating video player"
+        android:onClick="startFloatingVideoService"/>
+
 </LinearLayout>
