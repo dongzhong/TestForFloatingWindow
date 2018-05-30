@@ -19,7 +19,7 @@ import android.widget.Button;
  * Created by dongzhong on 2018/5/30.
  */
 
-public class FloatingWindowService extends Service {
+public class FloatingButtonService extends Service {
     private WindowManager windowManager;
     private WindowManager.LayoutParams layoutParams;
 

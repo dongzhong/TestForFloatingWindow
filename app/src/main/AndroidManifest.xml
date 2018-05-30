@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".FloatingWindowService"></service>
+        <service android:name=".FloatingButtonService"></service>
+        <service android:name=".FloatingImageDisplayService"></service>
     </application>
 
 </manifest>
