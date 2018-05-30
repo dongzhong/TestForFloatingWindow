@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +19,8 @@ import android.widget.Button;
  */
 
 public class FloatingButtonService extends Service {
+    public static boolean isStarted = false;
+
     private WindowManager windowManager;
     private WindowManager.LayoutParams layoutParams;
 
@@ -28,6 +29,7 @@ public class FloatingButtonService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        isStarted = true;
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         layoutParams = new WindowManager.LayoutParams();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
@@ -38,7 +40,7 @@ public class FloatingButtonService extends Service {
         layoutParams.format = PixelFormat.RGBA_8888;
         layoutParams.gravity = Gravity.LEFT | Gravity.TOP;
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        layoutParams.width = 100;
+        layoutParams.width = 500;
         layoutParams.height = 100;
         layoutParams.x = 300;
         layoutParams.y = 300;
@@ -57,12 +59,10 @@ public class FloatingButtonService extends Service {
     }
 
     private void showFloatingWindow() {
-        button = new Button(getApplicationContext());
         if (Settings.canDrawOverlays(this)) {
+            button = new Button(getApplicationContext());
             button.setText("Floating Window");
             button.setBackgroundColor(Color.BLUE);
-            button.setWidth(100);
-            button.setHeight(100);
             windowManager.addView(button, layoutParams);
 
             button.setOnTouchListener(new FloatingOnTouchListener());
@@ -85,12 +85,11 @@ public class FloatingButtonService extends Service {
                     int nowY = (int) event.getRawY();
                     int movedX = nowX - x;
                     int movedY = nowY - y;
-                    Log.d("悬浮窗", "movedX = " + movedX + ", movedY =" + movedY);
                     x = nowX;
                     y = nowY;
                     layoutParams.x = layoutParams.x + movedX;
                     layoutParams.y = layoutParams.y + movedY;
-                    windowManager.updateViewLayout(button, layoutParams);
+                    windowManager.updateViewLayout(view, layoutParams);
                     break;
                 default:
                     break;

@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startFloatingButtonService(View view) {
+        if (FloatingButtonService.isStarted) {
+            return;
+        }
         if (!Settings.canDrawOverlays(this)) {
             Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT);
             startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 1111);
@@ -37,12 +40,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void startFloatingLayoutService(View view) {
+    public void startFloatingImageDisplayService(View view) {
+        if (FloatingImageDisplayService.isStarted) {
+            return;
+        }
         if (!Settings.canDrawOverlays(this)) {
             Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT);
             startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 1111);
         } else {
-            startService(new Intent(MainActivity.this, FloatingButtonService.class));
+            startService(new Intent(MainActivity.this, FloatingImageDisplayService.class));
         }
     }
 }
