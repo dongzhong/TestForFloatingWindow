@@ -99,7 +99,6 @@ public class FloatingImageDisplayService extends Service {
                 if (displayView != null) {
                     ((ImageView) displayView.findViewById(R.id.image_display_imageview)).setImageResource(images[imageIndex]);
                 }
-                windowManager.updateViewLayout(displayView, layoutParams);
 
                 changeImageHandler.sendEmptyMessageDelayed(0, 2000);
             }
